@@ -2,11 +2,6 @@ import React, { Component } from 'react';
 import { Modal, Button, Form, Row, Col } from 'react-bootstrap'
 
 class PokemonDetails extends Component {
-
-  handleChange = (id) =>(e) => {
-    this.props.updateValue(id,e)
-  }
-
   render() {
     const { toggle, show, showDetails } = this.props
     const name = showDetails ? showDetails.name.english : '';
@@ -16,7 +11,7 @@ class PokemonDetails extends Component {
       showDetails ?
         <Modal show={show} >
           <Modal.Header >
-            <Modal.Title>View or Update Pokemon Details</Modal.Title>
+            <Modal.Title>View Pokemon Details</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form>
@@ -25,8 +20,8 @@ class PokemonDetails extends Component {
                   Name:
                     </Form.Label>
                 <Col sm="10">
-                  <Form.Control type="text" name="name"
-                  onChange={this.handleChange(id)} value={name} />
+                  <Form.Control plaintext readOnly
+                    defaultValue={name} />
                 </Col>
               </Form.Group>
               <Form.Group as={Row} >
@@ -34,9 +29,9 @@ class PokemonDetails extends Component {
                   Type:
                     </Form.Label>
                 <Col sm="10">
-                  <Form.Control type="text" 
-                  name="type"
-                  onChange={this.handleChange} value={type} />
+                  <Form.Control
+                    plaintext readOnly
+                    defaultValue={type} />
                 </Col>
               </Form.Group>
               <Form.Group as={Row} >
@@ -44,9 +39,8 @@ class PokemonDetails extends Component {
                   Attack:
                     </Form.Label>
                 <Col sm="10">
-                  <Form.Control type="text"
-                  name="attack"
-                  onChange={this.handleChange} value={showDetails.base.Attack} />
+                  <Form.Control plaintext readOnly
+                    defaultValue={showDetails.base.Attack} />
                 </Col>
               </Form.Group>
               <Form.Group as={Row} >
@@ -54,9 +48,9 @@ class PokemonDetails extends Component {
                   Defense:
                     </Form.Label>
                 <Col sm="10">
-                  <Form.Control type="text" 
-                  name="defense"
-                  onChange={this.handleChange} value={showDetails.base.Defense} />
+                  <Form.Control
+                    plaintext readOnly
+                    defaultValue={showDetails.base.Defense} />
                 </Col>
               </Form.Group>
 
@@ -65,9 +59,6 @@ class PokemonDetails extends Component {
           <Modal.Footer>
             <Button variant="secondary" onClick={toggle}>
               Close
-              </Button>
-            <Button variant="primary" type="submit">
-              Update
               </Button>
           </Modal.Footer>
         </Modal>
