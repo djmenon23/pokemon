@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PokemonDetails from './PokemonDetails';
 import { ListGroup, Button } from 'react-bootstrap'
-import UpdateDetails from './UpdateDetails';
+//import UpdateDetails from './UpdateDetails';
 
 class PokemonList extends Component {
     constructor() {
@@ -37,12 +37,14 @@ class PokemonList extends Component {
         })
     }
 
-    onValueChanged(event) {
+    onValueChanged(id,event) {
+        console.log(id)
         const target = event.target;
         const value =  target.value;
         const name = target.name;
+        console.log('name',name,'value',value)
         this.setState(prevState => ({
-            ...prevState.currentValue.name,
+            ...prevState.data,
             [name]: value
         }))
     }
@@ -50,23 +52,24 @@ class PokemonList extends Component {
         return (
             <div>
                 {this.state.data.map((value) =>
-                    <ListGroup key={value.id} row>
+                    <ListGroup key={value.id} >
                         <ListGroup.Item
                             onClick={() => this.sendDetails(value)} style={{ cursor: 'pointer', color: 'blue' }}>{value.name.english}
                         </ListGroup.Item>
-                        <ListGroup.Item>
+                        {/* <ListGroup.Item>
                             <Button variant="primary" onClick={this.toggleUpdateModal}>Update</Button>  
-                        </ListGroup.Item>
+                        </ListGroup.Item> */}
                     </ListGroup>
                 )}
                 <PokemonDetails
                     show={this.state.showDetailsModal}
                     toggle={this.toggleModal}
                     showDetails={this.state.currentValue}
+                    updateValue = {this.onValueChanged}
                 />
-                <UpdateDetails
+                {/* <UpdateDetails
                 toggle = {this.toggleUpdateModal}
-                show={this.state.showUpdateModal}/>
+                show={this.state.showUpdateModal}/> */}
             </div>
         );
     }

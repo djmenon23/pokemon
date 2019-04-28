@@ -5,7 +5,7 @@ const UpdateDetails = props => {
     return (
           <Modal show={props.show} >
             <Modal.Header >
-              <Modal.Title>Update Pokemon Details</Modal.Title>
+              <Modal.Title>View Pokemon Details</Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <Form>

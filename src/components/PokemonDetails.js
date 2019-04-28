@@ -1,16 +1,22 @@
-import React from 'react';
-import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
+import React, { Component } from 'react';
+import { Modal, Button, Form, Row, Col } from 'react-bootstrap'
 
-const PokemonDetails = props => {
+class PokemonDetails extends Component {
 
-    const { toggle, show, showDetails } = props
+  handleChange = (id) =>(e) => {
+    this.props.updateValue(id,e)
+  }
+
+  render() {
+    const { toggle, show, showDetails } = this.props
     const name = showDetails ? showDetails.name.english : '';
     const type = showDetails ? showDetails.type.join(',') : '';
+    const id = showDetails.id;
     return (
       showDetails ?
         <Modal show={show} >
           <Modal.Header >
-            <Modal.Title>View Pokemon Details</Modal.Title>
+            <Modal.Title>View or Update Pokemon Details</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form>
@@ -19,7 +25,8 @@ const PokemonDetails = props => {
                   Name:
                     </Form.Label>
                 <Col sm="10">
-                <Form.Control plaintext readOnly defaultValue={name} />
+                  <Form.Control type="text" name="name"
+                  onChange={this.handleChange(id)} value={name} />
                 </Col>
               </Form.Group>
               <Form.Group as={Row} >
@@ -27,7 +34,9 @@ const PokemonDetails = props => {
                   Type:
                     </Form.Label>
                 <Col sm="10">
-                <Form.Control plaintext readOnly defaultValue={type} />
+                  <Form.Control type="text" 
+                  name="type"
+                  onChange={this.handleChange} value={type} />
                 </Col>
               </Form.Group>
               <Form.Group as={Row} >
@@ -35,7 +44,9 @@ const PokemonDetails = props => {
                   Attack:
                     </Form.Label>
                 <Col sm="10">
-                <Form.Control plaintext readOnly defaultValue={showDetails.base.Attack} />
+                  <Form.Control type="text"
+                  name="attack"
+                  onChange={this.handleChange} value={showDetails.base.Attack} />
                 </Col>
               </Form.Group>
               <Form.Group as={Row} >
@@ -43,7 +54,9 @@ const PokemonDetails = props => {
                   Defense:
                     </Form.Label>
                 <Col sm="10">
-                <Form.Control plaintext readOnly defaultValue={showDetails.base.Defense} />
+                  <Form.Control type="text" 
+                  name="defense"
+                  onChange={this.handleChange} value={showDetails.base.Defense} />
                 </Col>
               </Form.Group>
 
@@ -53,10 +66,14 @@ const PokemonDetails = props => {
             <Button variant="secondary" onClick={toggle}>
               Close
               </Button>
+            <Button variant="primary" type="submit">
+              Update
+              </Button>
           </Modal.Footer>
         </Modal>
         : null
     )
   }
+}
 
 export default PokemonDetails;
